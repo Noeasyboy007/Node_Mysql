@@ -2,11 +2,15 @@ const express = require('express');
 
 const colors = require('colors');
 
+const morgan = require('morgan');
+
 //rest object
 const app = express();
 
-//middlewares
 
+//middlewares
+// For Url hit
+app.use(morgan('dev'));
 
 
 //routes
