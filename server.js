@@ -1,5 +1,7 @@
 const express = require('express');
 
+const colors = require('colors');
+
 //rest object
 const app = express();
 
@@ -16,4 +18,5 @@ app.get('/test', (req, res) => {
 //port 
 const PORT = 8080;
 
-app.listen(PORT, () => { console.log(`Server Started at Port ${PORT}`) });
+app.listen(PORT, () => { console.log(`Server Started at Port ${PORT}`.bgBlue.white) });
+
