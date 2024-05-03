@@ -4,11 +4,20 @@ const colors = require('colors');
 
 const morgan = require('morgan');
 
+const dotenv = require('dotenv');
+
+const mysqlPool = require('./connection/db');
+//configure dotenv
+dotenv.config();
+
+
 //rest object
 const app = express();
 
 
 //middlewares
+app.use(express.json());
+
 // For Url hit
 app.use(morgan('dev'));
 
@@ -18,9 +27,21 @@ app.get('/test', (req, res) => {
     res.status(200).send("<h1>NodeJs Mysql App</h1>")
 })
 
+app.use('/student',require('./routes/studentsRoutes'))
+
 
 //port 
-const PORT = 8080;
+const PORT = process.env.PORT || 5050;
 
-app.listen(PORT, () => { console.log(`Server Started at Port ${PORT}`.bgBlue.white) });
+//conditionaly Lisent
+mysqlPool.query('SELECT 1').then(() => {
+
+    console.log('mySql DB connected'.bgGreen.white)
+    //listen
+    app.listen(PORT, () => { console.log(`Server Started at Port ${PORT}`.bgBlue.white) });
+}).catch((error) => {
+    console.log(error);
+})
+
+
 
