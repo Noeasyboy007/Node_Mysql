@@ -7,6 +7,9 @@ const morgan = require('morgan');
 const dotenv = require('dotenv');
 
 const mysqlPool = require('./connection/db');
+
+const getAllStudentList = require('./routes/studentsRoutes')
+
 //configure dotenv
 dotenv.config();
 
@@ -27,11 +30,12 @@ app.get('/test', (req, res) => {
     res.status(200).send("<h1>NodeJs Mysql App</h1>")
 })
 
-app.use('/student',require('./routes/studentsRoutes'))
+app.use('/students',getAllStudentList)
 
 
 //port 
 const PORT = process.env.PORT || 5050;
+
 
 //conditionaly Lisent
 mysqlPool.query('SELECT 1').then(() => {
